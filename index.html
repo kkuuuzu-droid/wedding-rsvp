@@ -1,141 +1,316 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation | Kenta & Yoshiko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <style>
+    :root {
+      --bg-color: #faf8f5;
+      --card-bg: #ffffff;
+      --text-main: #3a3837;
+      --text-muted: #8c8885;
+      --gold-main: #bfa15f;
+      --gold-light: #f5f0e6;
+      --border-color: #e8e2d8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Shippori Mincho', serif;
+      letter-spacing: 0.08em;
+      line-height: 1.8;
+      text-align: center;
+      padding-bottom: 80px;
+    }
+    .hero-container {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto;
+      height: 480px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+    .swiper { width: 100%; height: 100%; }
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.25);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.6rem;
+      letter-spacing: 0.15em;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      margin-bottom: 8px;
+    }
+    .hero-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: #fff;
+      letter-spacing: 0.22em;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+    .section-intro {
+      max-width: 460px;
+      margin: 40px auto 30px;
+      padding: 0 20px;
+    }
+    .intro-text {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      line-height: 2.2;
+      margin-bottom: 24px;
+    }
+    .couple-names {
+      margin: 20px 0 30px;
+      font-size: 1.05rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-main);
+      font-weight: 500;
+    }
+    .details-box {
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px 0;
+      margin: 20px 0;
+      font-size: 0.9rem;
+    }
+    .details-box dt { color: var(--gold-main); font-weight: 600; margin-top: 10px; }
+    .details-box dd { margin-bottom: 10px; }
+    .form-card {
+      max-width: 440px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 36px 24px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(191, 161, 95, 0.08);
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: var(--gold-main);
+      text-align: center;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+    }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      background: #faf9f7;
+      outline: none;
+      transition: border 0.3s;
+    }
+    input[type="text"]:focus, textarea:focus {
+      border-color: var(--gold-main);
+      background: #fff;
+    }
+    textarea { min-height: 70px; resize: vertical; }
+    .radio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .radio-grid input[type="radio"] { display: none; }
+    .radio-btn {
+      display: block;
+      padding: 12px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: #faf9f7;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.25s;
+    }
+    .radio-grid input[type="radio"]:checked + .radio-btn {
+      background: var(--gold-light);
+      border-color: var(--gold-main);
+      color: var(--gold-main);
+      font-weight: 600;
+    }
+    .hidden { display: none; }
+    .submit-btn {
+      width: 100%;
+      margin-top: 16px;
+      padding: 15px;
+      font-family: 'Shippori Mincho', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      background: linear-gradient(135deg, #d4af37 0%, #bfa15f 100%);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(191, 161, 95, 0.3);
+      transition: opacity 0.2s;
+    }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="ja"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Wedding Invitation&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Google Fonts: 上品なセリフ体 &amp; 明朝体 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&amp;family=Shippori+Mincho:wght@400;500;600&amp;display=swap" rel="stylesheet"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Swiper (写真スライド) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg-color: #faf8f5;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--card-bg: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--text-main: #3a3837;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--text-muted: #8c8885;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--gold-main: #bfa15f;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--gold-light: #f5f0e6;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--border-color: #e8e2d8;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>* { box-sizing: border-box; margin: 0; padding: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background-color: var(--bg-color);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text-main);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Shippori Mincho', serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.08em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.8;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 80px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ヒーローエリア &amp; 写真スライド */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-container {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 500px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 480px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 10px 25px rgba(0,0,0,0.05);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.swiper { width: 100%; height: 100%; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.swiper-slide img {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>object-fit: cover;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>object-position: center 25%; /* 人物の顔・頭の切れを防止 */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-overlay {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>top: 0; left: 0; right: 0; bottom: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255, 255, 255, 0.25);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: 10;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-title {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Cormorant Garamond', serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 2.8rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.15em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-shadow: 0 2px 8px rgba(0,0,0,0.4);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.hero-names {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Cormorant Garamond', serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.3rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.2em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-shadow: 0 2px 6px rgba(0,0,0,0.4);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* 招待挨拶・案内エリア */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.section-intro {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 460px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 40px auto 30px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.intro-text {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.88rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text-main);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 2.2;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.details-box {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid var(--border-color);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid var(--border-color);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 20px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 20px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.details-box dt { color: var(--gold-main); font-weight: 600; margin-top: 10px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.details-box dd { margin-bottom: 10px; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* 回答フォームカード */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.form-card {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 440px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--card-bg);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 36px 24px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: 0 10px 30px rgba(191, 161, 95, 0.08);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border-color);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: left;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.form-title {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Cormorant Garamond', serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1.8rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gold-main);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.1em;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.form-group { margin-bottom: 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>input[type="text"], textarea {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var</p>
+
+  <div class="hero-container">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="photo1.jpg" alt="Wedding Photo 1"></div>
+        <div class="swiper-slide"><img src="photo2.jpg" alt="Wedding Photo 2"></div>
+        <div class="swiper-slide"><img src="photo3.jpg" alt="Wedding Photo 3"></div>
+      </div>
+    </div>
+    <div class="hero-overlay">
+      <div class="hero-title">Wedding Invitation</div>
+      <div class="hero-names">KENTA & YOSHIKO</div>
+    </div>
+  </div>
+
+  <div class="section-intro">
+    <p class="intro-text">
+      皆様におかれましては<br>
+      ご清祥のこととお慶び申し上げます<br><br>
+      このたび 私たちは結婚式を<br>
+      挙げることとなりました<br>
+      日頃お世話になっております皆様に<br>
+      感謝の気持ちを込めて<br>
+      ささやかな小宴を催したく存じます
+    </p>
+
+    <div class="couple-names">
+      クミン 健太<br>
+      クミン 美子
+    </div>
+
+    <dl class="details-box">
+      <dt>日時</dt>
+      <dd>2026年11月22日（日）<br>挙式 11:30〜 / 披露宴 12:30〜</dd>
+      <dt>会場</dt>
+      <dd>グランドホテル アネックス<br>東京都渋谷区〇〇 1-2-3</dd>
+    </dl>
+  </div>
+
+  <div class="form-card">
+    <div class="form-title">R S V P</div>
+    <form id="rsvpForm">
+      <div class="form-group">
+        <label>お名前（漢字）</label>
+        <input type="text" id="name" required placeholder="例：山田 太郎">
+      </div>
+
+      <div class="form-group">
+        <label>ご出欠</label>
+        <div class="radio-grid">
+          <label>
+            <input type="radio" name="attendance" value="ご出席" checked>
+            <span class="radio-btn">ご出席</span>
+          </label>
+          <label>
+            <input type="radio" name="attendance" value="ご欠席">
+            <span class="radio-btn">ご欠席</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>アレルギーの有無</label>
+        <div class="radio-grid">
+          <label>
+            <input type="radio" name="allergy" value="なし" checked onchange="toggleAllergy(false)">
+            <span class="radio-btn">なし</span>
+          </label>
+          <label>
+            <input type="radio" name="allergy" value="あり" onchange="toggleAllergy(true)">
+            <span class="radio-btn">あり</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group hidden" id="allergyGroup">
+        <label>アレルギー詳細</label>
+        <textarea id="allergyDetail" placeholder="エビ、カニ、甲殻類 など"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>メッセージ（任意）</label>
+        <textarea id="message" placeholder="お祝いメッセージをご記入ください"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">回答を送信する</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      effect: 'fade',
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      loop: true,
+      fadeEffect: { crossFade: true },
+      speed: 1500
+    });
+
+    function toggleAllergy(show) {
+      document.getElementById('allergyGroup').classList.toggle('hidden', !show);
+    }
+
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbw0n8Nw9Aa76oOGDihqZQBt_rtq5hZdvQ3LEQET3MMw3n7BILLu-PVg-gLtAYfsNcA/exec";
+
+    document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerText = "送信中...";
+
+      const payload = {
+        name: document.getElementById('name').value,
+        attendance: document.querySelector('input[name="attendance"]:checked').value,
+        allergy: document.querySelector('input[name="allergy"]:checked').value,
+        allergyDetail: document.getElementById('allergyDetail').value,
+        message: document.getElementById('message').value
+      };
+
+      try {
+        await fetch(GAS_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        alert("ご回答いただきありがとうございました！");
+        document.getElementById('rsvpForm').reset();
+        toggleAllergy(false);
+      } catch (err) {
+        alert("送信に失敗しました。時間をおいて再度お試しください。");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "回答を送信する";
+      }
+    });
+  </script>
 </body>
 </html>
