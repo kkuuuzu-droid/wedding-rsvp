@@ -45,7 +45,7 @@
       position: relative;
     }
 
-    /* 画面をトコトコ動き回るお子様キャラクター */
+    /* 画面内を歩き回るお子様キャラクター */
     #roaming-child {
       position: fixed;
       bottom: 25px;
@@ -147,7 +147,7 @@
       background: var(--gold-accent);
     }
 
-    /* プロフィール */
+    /* 丸枠プロフィール */
     .profile-container {
       display: flex;
       justify-content: center;
@@ -464,7 +464,7 @@
           <div class="info-dt">日時</div>
           <div class="info-dd">
             2026年11月22日（日）<br>
-            開場 11:30 / 乾杯 12:00〜<br>
+            開場・スタート 13:00〜<br>
             <span style="font-size: 0.8rem; color: var(--text-sub);">（お店貸切のため、ご都合の良い時間にお越しいただけます）</span>
           </div>
         </div>
@@ -524,14 +524,14 @@
 
           <!-- ご出席時のみ表示 -->
           <div id="attendDetails">
+            <!-- 1時間刻みの来店予定時間 -->
             <div class="form-group">
               <label class="form-label">ご来店予定時間<span class="required-tag">必須</span></label>
-              <span class="sub-note">途中からのご参加や、早めのご来店も大歓迎です</span>
+              <span class="sub-note">途中参加やご都合の良い時間帯をお選びください</span>
               <select id="arrivalTime">
-                <option value="11:30（開場〜最初から）" selected>11:30（開場〜最初から参加）</option>
-                <option value="12:00頃（乾杯に合わせて）">12:00頃（乾杯に合わせて参加）</option>
-                <option value="12:30頃〜途中参加">12:30頃〜（途中参加）</option>
-                <option value="13:00以降〜途中参加">13:00以降〜（途中参加）</option>
+                <option value="13:00〜（スタートから参加）" selected>13:00〜（スタートから参加）</option>
+                <option value="14:00〜（途中参加）">14:00〜（途中参加）</option>
+                <option value="15:00〜（途中参加）">15:00〜（途中参加）</option>
                 <option value="未定（後ほど連絡）">未定（近くなったら連絡します）</option>
               </select>
             </div>
@@ -618,8 +618,8 @@
       document.getElementById('attendDetails').classList.toggle('hidden', !isAttending);
     }
 
-    // カウントダウン
-    const targetDate = new Date('2026-11-22T11:30:00+09:00').getTime();
+    // カウントダウン（13:00設定に変更）
+    const targetDate = new Date('2026-11-22T13:00:00+09:00').getTime();
     function updateCountdown() {
       const now = new Date().getTime();
       const diff = targetDate - now;
@@ -651,12 +651,11 @@
 
     function moveChild() {
       const screenW = window.innerWidth - 85;
-      const screenH = 120; // 画面下部120px付近を行き来
+      const screenH = 120;
       targetX = Math.random() * screenW;
       targetY = 15 + Math.random() * screenH;
 
       const goingRight = targetX > posX;
-      // 進行方向に合わせて体の向きを左右反転
       childEl.style.transform = goingRight ? 'scaleX(-1)' : 'scaleX(1)';
 
       childEl.style.transition = 'left 4s cubic-bezier(0.25, 1, 0.5, 1), bottom 4s ease';
@@ -666,13 +665,11 @@
       posY = targetY;
     }
 
-    // 4.5秒ごとに次の場所へてくてく移動
     setInterval(moveChild, 4500);
 
-    // タップ（クリック）するとジャンプして喜ぶアクション
     childEl.addEventListener('click', () => {
       childEl.classList.remove('jump');
-      void childEl.offsetWidth; // リフロー発生
+      void childEl.offsetWidth;
       childEl.classList.add('jump');
     });
 
