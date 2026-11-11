@@ -288,14 +288,6 @@
       padding: 1px 4px;
       border-radius: 3px;
     }
-    .sub-note {
-      display: block;
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      font-weight: 400;
-      margin-top: -6px;
-      margin-bottom: 8px;
-    }
 
     input[type="text"], select, textarea {
       width: 100%;
@@ -463,9 +455,8 @@
         <div class="info-row">
           <div class="info-dt">日時</div>
           <div class="info-dd">
-            2026年11月22日（日）<br>
-            開場・スタート 13:00〜<br>
-            <span style="font-size: 0.8rem; color: var(--text-sub);">（お店貸切のため、ご都合の良い時間にお越しいただけます）</span>
+            2026年11月22日（日）13:00〜<br>
+            <span style="font-size: 0.8rem; color: var(--gold-accent); font-weight: 600;">※お店貸切</span>
           </div>
         </div>
         <div class="info-row">
@@ -524,15 +515,18 @@
 
           <!-- ご出席時のみ表示 -->
           <div id="attendDetails">
-            <!-- 1時間刻みの来店予定時間 -->
             <div class="form-group">
               <label class="form-label">ご来店予定時間<span class="required-tag">必須</span></label>
-              <span class="sub-note">途中参加やご都合の良い時間帯をお選びください</span>
               <select id="arrivalTime">
-                <option value="13:00〜（スタートから参加）" selected>13:00〜（スタートから参加）</option>
-                <option value="14:00〜（途中参加）">14:00〜（途中参加）</option>
-                <option value="15:00〜（途中参加）">15:00〜（途中参加）</option>
-                <option value="未定（後ほど連絡）">未定（近くなったら連絡します）</option>
+                <option value="13:00〜" selected>13:00〜</option>
+                <option value="14:00〜">14:00〜</option>
+                <option value="15:00〜">15:00〜</option>
+                <option value="16:00〜">16:00〜</option>
+                <option value="17:00〜">17:00〜</option>
+                <option value="18:00〜">18:00〜</option>
+                <option value="19:00〜">19:00〜</option>
+                <option value="20:00〜">20:00〜</option>
+                <option value="21:00〜">21:00〜</option>
               </select>
             </div>
 
@@ -618,7 +612,7 @@
       document.getElementById('attendDetails').classList.toggle('hidden', !isAttending);
     }
 
-    // カウントダウン（13:00設定に変更）
+    // カウントダウン（2026-11-22 13:00設定）
     const targetDate = new Date('2026-11-22T13:00:00+09:00').getTime();
     function updateCountdown() {
       const now = new Date().getTime();
@@ -642,7 +636,7 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // 画面内をランダムに歩き回るアニメーションスクリプト
+    // 画面内をランダムに歩き回るアニメーション
     const childEl = document.getElementById('roaming-child');
     let posX = 10;
     let posY = 20;
