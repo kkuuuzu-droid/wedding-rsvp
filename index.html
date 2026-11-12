@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Wedding Party | Kyosuke & Aya</title>
+  <title>Wedding Party | Kenta & Yoshiko</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,12 +45,9 @@
       position: relative;
     }
 
-    /* 画面内を歩き回るお子様キャラクター */
-    #roaming-child {
+    /* 画面内を歩き回るキャラクター共通スタイル */
+    .roaming-char {
       position: fixed;
-      bottom: 25px;
-      left: 10px;
-      width: 75px;
       height: auto;
       z-index: 9999;
       pointer-events: auto;
@@ -59,10 +56,26 @@
       transition: transform 0.2s ease;
       will-change: left, bottom, transform;
     }
-    #roaming-child.jump {
-      animation: childJump 0.5s ease;
+    #roaming-child {
+      bottom: 20px;
+      left: 15px;
+      width: 72px;
     }
-    @keyframes childJump {
+    #roaming-groom {
+      bottom: 35px;
+      left: 110px;
+      width: 68px;
+    }
+    #roaming-bride {
+      bottom: 25px;
+      left: 200px;
+      width: 72px;
+    }
+
+    .roaming-char.jump {
+      animation: charJump 0.5s ease;
+    }
+    @keyframes charJump {
       0%   { transform: translateY(0) scale(1); }
       50%  { transform: translateY(-40px) scale(1.15) rotate(8deg); }
       100% { transform: translateY(0) scale(1); }
@@ -361,8 +374,10 @@
 </head>
 <body>
 
-  <!-- 画面内をトコトコ歩き回るお子様キャラクター -->
-  <img id="roaming-child" src="child.png" alt="お祝いキャラクター" title="タップしてみてね！" onerror="this.style.display='none'">
+  <!-- 画面内をトコトコ歩き回るキャラクター3人 -->
+  <img id="roaming-child" class="roaming-char" src="child.png" alt="お子様キャラクター" title="タップしてみてね！" onerror="this.style.display='none'">
+  <img id="roaming-groom" class="roaming-char" src="panda_groom.png" alt="新郎パンダ" title="タップしてみてね！" onerror="this.style.display='none'">
+  <img id="roaming-bride" class="roaming-char" src="panda_bride.png" alt="新婦パンダ" title="タップしてみてね！" onerror="this.style.display='none'">
 
   <div class="wrapper">
 
@@ -402,18 +417,18 @@
       <div class="profile-container">
         <div class="profile-item">
           <div class="avatar-wrap">
-            <img src="groom.jpg" alt="新郎 遠藤 恭祐" onerror="this.src='photo1.jpg'">
+            <img src="groom.jpg" alt="新郎 クミン 健太" onerror="this.src='photo1.jpg'">
           </div>
           <div class="profile-role">GROOM</div>
-          <div class="profile-name">遠藤 恭祐</div>
+          <div class="profile-name">クミン 健太</div>
           <div class="profile-msg">皆様とお酒を酌み交わせるのを心から楽しみにしています！</div>
         </div>
         <div class="profile-item">
           <div class="avatar-wrap">
-            <img src="bride.jpg" alt="新婦 遠藤 彩" onerror="this.src='photo2.jpg'">
+            <img src="bride.jpg" alt="新婦 クミン 美子" onerror="this.src='photo2.jpg'">
           </div>
           <div class="profile-role">BRIDE</div>
-          <div class="profile-name">遠藤 彩</div>
+          <div class="profile-name">クミン 美子</div>
           <div class="profile-msg">美味しい食事と一緒に素敵な時間を過ごしましょう♪</div>
         </div>
       </div>
@@ -636,36 +651,47 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // 画面内をランダムに歩き回るアニメーション
-    const childEl = document.getElementById('roaming-child');
-    let posX = 10;
-    let posY = 20;
-    let targetX = 10;
-    let targetY = 20;
+    // 複数キャラクターが画面内をランダムに歩き回るセットアップ
+    function setupRoamingCharacter(elementId, intervalMs, flipOnRight) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
 
-    function moveChild() {
-      const screenW = window.innerWidth - 85;
-      const screenH = 120;
-      targetX = Math.random() * screenW;
-      targetY = 15 + Math.random() * screenH;
+      let posX = parseFloat(getComputedStyle(el).left) || 10;
 
-      const goingRight = targetX > posX;
-      childEl.style.transform = goingRight ? 'scaleX(-1)' : 'scaleX(1)';
+      function move() {
+        const screenW = Math.max(window.innerWidth - 85, 50);
+        const screenH = 120;
+        const targetX = Math.random() * screenW;
+        const targetY = 15 + Math.random() * screenH;
 
-      childEl.style.transition = 'left 4s cubic-bezier(0.25, 1, 0.5, 1), bottom 4s ease';
-      childEl.style.left = targetX + 'px';
-      childEl.style.bottom = targetY + 'px';
-      posX = targetX;
-      posY = targetY;
+        const goingRight = targetX > posX;
+        if (flipOnRight) {
+          el.style.transform = goingRight ? 'scaleX(-1)' : 'scaleX(1)';
+        } else {
+          el.style.transform = goingRight ? 'scaleX(1)' : 'scaleX(-1)';
+        }
+
+        const durationSec = (intervalMs - 400) / 1000;
+        el.style.transition = `left ${durationSec}s cubic-bezier(0.25, 1, 0.5, 1), bottom ${durationSec}s ease`;
+        el.style.left = targetX + 'px';
+        el.style.bottom = targetY + 'px';
+        posX = targetX;
+      }
+
+      setTimeout(move, 300);
+      setInterval(move, intervalMs);
+
+      el.addEventListener('click', () => {
+        el.classList.remove('jump');
+        void el.offsetWidth;
+        el.classList.add('jump');
+      });
     }
 
-    setInterval(moveChild, 4500);
-
-    childEl.addEventListener('click', () => {
-      childEl.classList.remove('jump');
-      void childEl.offsetWidth;
-      childEl.classList.add('jump');
-    });
+    // それぞれ異なるペースでトコトコ移動させる
+    setupRoamingCharacter('roaming-child', 4500, true);
+    setupRoamingCharacter('roaming-groom', 5300, true);
+    setupRoamingCharacter('roaming-bride', 6100, false);
 
     // フォーム送信
     const GAS_URL = "https://script.google.com/macros/s/AKfycbw0n8Nw9Aa76oOGDihqZQBt_rtq5hZdvQ3LEQET3MMw3n7BILLu-PVg-gLtAYfsNcA/exec";
