@@ -154,7 +154,7 @@
     .open-invite-btn:active { transform: scale(0.96); }
 
     /* =========================================
-       送信後のパンダスロットゲームモーダル
+       送信後のパンダスロットゲームモーダル（1個ずつ目押し対応）
     ========================================= */
     #slot-modal {
       position: fixed;
@@ -165,7 +165,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 16px;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -180,24 +180,24 @@
       border: 2px solid var(--gold-accent);
       border-radius: 20px;
       width: 100%;
-      max-width: 390px;
-      padding: 28px 18px 24px;
+      max-width: 400px;
+      padding: 24px 16px 20px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
       position: relative;
       text-align: center;
       animation: cardPopIn 0.5s ease forwards;
     }
     .slot-thanks {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--gold-accent);
       font-weight: 600;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     .slot-title {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       font-weight: 600;
       color: var(--text-main);
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       letter-spacing: 0.12em;
     }
 
@@ -205,19 +205,24 @@
       background: var(--gold-pale);
       border: 2px solid var(--gold-accent);
       border-radius: 14px;
-      padding: 14px 10px;
-      margin-bottom: 18px;
+      padding: 12px 10px;
+      margin-bottom: 14px;
     }
     .slot-reels {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
+    .reel-col {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
     .reel-window {
       background: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      height: 105px;
+      height: 100px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -229,26 +234,53 @@
     .reel-window.win-glow {
       border: 2px solid #e0a836;
       background: #fffdf5;
-      box-shadow: 0 0 15px rgba(224, 168, 54, 0.45);
-      transform: scale(1.04);
+      box-shadow: 0 0 15px rgba(224, 168, 54, 0.5);
+      transform: scale(1.03);
     }
     .reel-window img {
-      width: 82px;
-      height: 82px;
+      width: 78px;
+      height: 78px;
       object-fit: contain;
+    }
+
+    /* 個別STOPボタン */
+    .reel-stop-btn {
+      width: 100%;
+      padding: 10px 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      background: #d9534f;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #a9322f;
+      transition: all 0.1s ease;
+    }
+    .reel-stop-btn:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #a9322f;
+    }
+    .reel-stop-btn:disabled {
+      background: #ccc6be;
+      box-shadow: none;
+      cursor: not-allowed;
+      opacity: 0.65;
     }
 
     .slot-controls {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
     }
-    .slot-btn {
-      width: 85%;
-      padding: 14px;
+    .slot-start-btn {
+      width: 82%;
+      padding: 12px;
       font-family: 'Shippori Mincho', serif;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 600;
       letter-spacing: 0.18em;
       background: linear-gradient(135deg, #d4b26a 0%, #a88741 100%);
@@ -256,30 +288,33 @@
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      box-shadow: 0 6px 16px rgba(184, 155, 88, 0.35);
+      box-shadow: 0 5px 14px rgba(184, 155, 88, 0.35);
       transition: all 0.2s ease;
     }
-    .slot-btn:disabled {
-      opacity: 0.5;
+    .slot-start-btn:disabled {
+      opacity: 0.45;
       cursor: not-allowed;
     }
 
     .slot-result-msg {
-      min-height: 54px;
-      margin-top: 12px;
-      font-size: 0.92rem;
+      min-height: 48px;
+      margin-top: 6px;
+      font-size: 0.88rem;
       font-weight: 600;
-      color: #c28b2c;
+      color: #b57d24;
       line-height: 1.6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .slot-close-btn {
-      margin-top: 8px;
+      margin-top: 4px;
       background: none;
       border: 1px solid var(--border-color);
       color: var(--text-sub);
-      padding: 8px 22px;
+      padding: 7px 22px;
       border-radius: 20px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       cursor: pointer;
     }
 
@@ -626,23 +661,32 @@
     </div>
   </div>
 
-  <!-- 回答送信後のパンダスロットゲーム -->
+  <!-- 回答送信後のパンダスロットゲーム（1個ずつ目押しストップ対応） -->
   <div id="slot-modal">
     <div class="slot-box">
       <div class="slot-thanks">ご回答ありがとうございました！</div>
-      <div class="slot-title">お祝いパンダスロット</div>
+      <div class="slot-title">目押しチャレンジ！パンダスロット</div>
       
       <div class="slot-machine-frame">
         <div class="slot-reels">
-          <div class="reel-window" id="reel0"><img src="panda_groom.png" alt="リール1"></div>
-          <div class="reel-window" id="reel1"><img src="panda_bride.png" alt="リール2"></div>
-          <div class="reel-window" id="reel2"><img src="panda_sasa.png" alt="リール3"></div>
+          <div class="reel-col">
+            <div class="reel-window" id="reel0"><img src="panda_groom.png" alt="リール1"></div>
+            <button type="button" class="reel-stop-btn" id="stopBtn0" onclick="stopSingleReel(0)" disabled>STOP</button>
+          </div>
+          <div class="reel-col">
+            <div class="reel-window" id="reel1"><img src="panda_bride.png" alt="リール2"></div>
+            <button type="button" class="reel-stop-btn" id="stopBtn1" onclick="stopSingleReel(1)" disabled>STOP</button>
+          </div>
+          <div class="reel-col">
+            <div class="reel-window" id="reel2"><img src="panda_sasa.png" alt="リール3"></div>
+            <button type="button" class="reel-stop-btn" id="stopBtn2" onclick="stopSingleReel(2)" disabled>STOP</button>
+          </div>
         </div>
       </div>
 
       <div class="slot-controls">
-        <button type="button" class="slot-btn" id="slotActionBtn" onclick="handleSlotAction()">スタート！</button>
-        <div class="slot-result-msg" id="slotResultMsg">ボタンを押して新郎または新婦パンダを揃えよう！</div>
+        <button type="button" class="slot-start-btn" id="slotStartBtn" onclick="startAllReels()">スタート！</button>
+        <div class="slot-result-msg" id="slotResultMsg">「スタート！」を押して、1つずつ目押しで揃えよう！</div>
         <button type="button" class="slot-close-btn" onclick="closeSlotModal()">閉じる</button>
       </div>
     </div>
@@ -987,8 +1031,7 @@
     setupRoamingCharacter('roaming-bride', 6100, false);
 
     // =========================================
-    // スロットゲーム制御ロジック
-    // （回転中は全5パンダが登場し、停止時は必ず新郎or新婦のどちらかが3つ揃う）
+    // 1リールずつ目押しストップ対応スロットゲーム
     // =========================================
     const allPandas = [
       'panda_groom.png',
@@ -997,18 +1040,20 @@
       'panda_beer.png',
       'panda_nikuman.png'
     ];
-    let slotState = 'idle'; // 'idle' | 'spinning' | 'stopping'
     let reelIntervals = [null, null, null];
-    let targetWinnerImg = 'panda_bride.png';
+    let reelCurrentIdx = [0, 1, 2];
+    let reelStopped = [true, true, true];
 
     function openSlotModal() {
-      slotState = 'idle';
-      document.getElementById('slotActionBtn').disabled = false;
-      document.getElementById('slotActionBtn').innerText = 'スタート！';
-      document.getElementById('slotResultMsg').innerText = 'ボタンを押して新郎または新婦パンダを揃えよう！';
       for (let i = 0; i < 3; i++) {
+        if (reelIntervals[i]) clearInterval(reelIntervals[i]);
+        reelStopped[i] = true;
         document.getElementById('reel' + i).classList.remove('win-glow');
+        document.getElementById('stopBtn' + i).disabled = true;
       }
+      document.getElementById('slotStartBtn').disabled = false;
+      document.getElementById('slotStartBtn').innerText = 'スタート！';
+      document.getElementById('slotResultMsg').innerText = '「スタート！」を押して、1つずつ目押しで揃えよう！';
       document.getElementById('slot-modal').classList.add('show');
     }
 
@@ -1019,54 +1064,80 @@
       document.getElementById('slot-modal').classList.remove('show');
     }
 
-    function handleSlotAction() {
-      const btn = document.getElementById('slotActionBtn');
+    function startAllReels() {
+      const startBtn = document.getElementById('slotStartBtn');
+      const msg = document.getElementById('slotResultMsg');
+      startBtn.disabled = true;
+      msg.innerText = '赤い「STOP」ボタンで1つずつ目押し！';
+
+      // リールごとに少し速度を変えて目押しの楽しさを演出
+      const speeds = [145, 160, 135];
+
+      for (let i = 0; i < 3; i++) {
+        reelStopped[i] = false;
+        const winEl = document.getElementById('reel' + i);
+        winEl.classList.remove('win-glow');
+        document.getElementById('stopBtn' + i).disabled = false;
+
+        // ランダムな開始位置からスタート
+        reelCurrentIdx[i] = Math.floor(Math.random() * allPandas.length);
+        const imgEl = winEl.querySelector('img');
+        imgEl.src = allPandas[reelCurrentIdx[i]];
+
+        reelIntervals[i] = setInterval(() => {
+          reelCurrentIdx[i] = (reelCurrentIdx[i] + 1) % allPandas.length;
+          imgEl.src = allPandas[reelCurrentIdx[i]];
+        }, speeds[i]);
+      }
+    }
+
+    function stopSingleReel(index) {
+      if (reelStopped[index]) return;
+
+      clearInterval(reelIntervals[index]);
+      reelStopped[index] = true;
+      document.getElementById('stopBtn' + index).disabled = true;
+
+      // 3つすべて止まったら結果判定
+      if (reelStopped[0] && reelStopped[1] && reelStopped[2]) {
+        evaluateSlotResult();
+      }
+    }
+
+    function evaluateSlotResult() {
+      const startBtn = document.getElementById('slotStartBtn');
       const msg = document.getElementById('slotResultMsg');
 
-      if (slotState === 'idle') {
-        slotState = 'spinning';
-        btn.innerText = 'ストップ！';
-        msg.innerText = '回転中... 狙ってストップ！';
+      const r0 = allPandas[reelCurrentIdx[0]];
+      const r1 = allPandas[reelCurrentIdx[1]];
+      const r2 = allPandas[reelCurrentIdx[2]];
 
-        // 今回の当たり絵柄を「新郎パンダ」か「新婦パンダ」の2択から決定
-        targetWinnerImg = Math.random() < 0.5 ? 'panda_bride.png' : 'panda_groom.png';
-
+      if (r0 === r1 && r1 === r2) {
+        // 3つ揃い大当たり！
         for (let i = 0; i < 3; i++) {
-          const winEl = document.getElementById('reel' + i);
-          winEl.classList.remove('win-glow');
-          const imgEl = winEl.querySelector('img');
-          let idx = i;
-          reelIntervals[i] = setInterval(() => {
-            idx = (idx + 1) % allPandas.length;
-            imgEl.src = allPandas[idx];
-          }, 75);
+          document.getElementById('reel' + i).classList.add('win-glow');
         }
-      } else if (slotState === 'spinning') {
-        slotState = 'stopping';
-        btn.disabled = true;
-        btn.innerText = '判定中...';
-
-        // 左・中・右の順に時間差でピタッと揃えて停止
-        [0, 1, 2].forEach((reelIndex) => {
-          setTimeout(() => {
-            clearInterval(reelIntervals[reelIndex]);
-            const winEl = document.getElementById('reel' + reelIndex);
-            winEl.querySelector('img').src = targetWinnerImg;
-            winEl.classList.add('win-glow');
-
-            // 3リール目が止まったら大当たり祝福！
-            if (reelIndex === 2) {
-              const isBride = targetWinnerImg === 'panda_bride.png';
-              msg.innerHTML = isBride
-                ? '🎉 大当たり！花嫁パンダ揃い！<br>当日お会いできるのを楽しみにしています！'
-                : '🎉 大当たり！新郎パンダ揃い！<br>乾杯できるのを心待ちにしています！';
-              btn.disabled = false;
-              btn.innerText = 'もう一度遊ぶ';
-              slotState = 'idle';
-            }
-          }, reelIndex * 420);
-        });
+        if (r0 === 'panda_bride.png') {
+          msg.innerHTML = '🎉 目押し成功！花嫁パンダ揃い！<br>最高の祝福をありがとうございます！';
+        } else if (r0 === 'panda_groom.png') {
+          msg.innerHTML = '🎉 目押し成功！新郎パンダ揃い！<br>当日一緒に乾杯しましょう！';
+        } else if (r0 === 'panda_beer.png') {
+          msg.innerHTML = '🍺 大当たり！生ビールパンダ揃い！<br>当日はたくさん飲みましょう！';
+        } else if (r0 === 'panda_nikuman.png') {
+          msg.innerHTML = '🥟 大当たり！まんぷくパンダ揃い！<br>美味しい料理を用意してお待ちしてます！';
+        } else {
+          msg.innerHTML = '🎋 大当たり！笹パンダ揃い！<br>素敵な1日になりますように！';
+        }
+      } else if (r0 === r1 || r1 === r2 || r0 === r2) {
+        // 2つ揃い（惜しい！）
+        msg.innerHTML = 'おしいっ！2つ揃い（リーチ）！<br>もう一度チャレンジしてみますか？';
+      } else {
+        // バラバラ
+        msg.innerHTML = '残念！揃わず…！<br>目押しで新郎新婦パンダを狙ってみよう！';
       }
+
+      startBtn.disabled = false;
+      startBtn.innerText = 'もう一度遊ぶ';
     }
 
     // フォーム送信
@@ -1104,7 +1175,6 @@
         document.getElementById('rsvpForm').reset();
         toggleAllergy(false);
         toggleGuest(false);
-        // 送信完了後にパンダスロットモーダルを開く
         openSlotModal();
       } catch (err) {
         alert("送信に失敗しました。通信環境をご確認のうえ再度お試しください。");
